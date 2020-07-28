@@ -1,0 +1,87 @@
+---
+name:  single
+title: Analysis of one concept with MCA
+jrs:   '1.1'
+
+items:
+    - name: eigengroup
+      title: Eigenvalue decomposition
+      type: Group
+      items:
+        - name: eigen
+          title: 'Eigenvalue and (cumulative) percentage of variance'
+          type: Table
+          columns:
+            - name: component
+              title: ''
+              type: 'text'
+            - name: eigenvalue
+              title: 'Eigenvalue'
+              type: number
+            - name: purcent
+              title: '% of the variance'
+              type: number
+            - name: purcentcum
+              title: 'Cumulative %'
+              type: number
+              
+    - name: ploteigen
+      title: Eigenvalue representation
+      type: Image
+      width:  600
+      height: 500
+      renderFun: .ploteigen    
+      
+    - name: distribution
+      title: Statements distribution
+      type: Image
+      width: 700
+      height: 500
+      renderFun: .distribution     
+              
+    - name: plotindiv
+      title: Representation of the respondents
+      type: Image
+      width:  700
+      height: 600
+      renderFun: .plotindiv
+
+    - name: plotvar
+      title: Representation of the statements
+      type: Image
+      width:  700
+      height: 600
+      renderFun: .plotvar
+
+    - name: plotquantisup
+      title: Representation of the supplementary variables
+      type: Image
+      visible: (quantimod)
+      width: 700
+      height: 600
+      renderFun: .plotquantisup
+      
+    - name: plotmod
+      title: Representation of statements categories
+      type: Image
+      width: 700
+      height: 600
+      renderFun: .plotmod
+
+    - name: dimdesc
+      title: Automatic description of the axes
+      type: Preformatted
+      
+    - name: clust
+      title: Automatic description of cluster
+      type: Preformatted       
+      
+    - name: plotclust
+      title: Tree of hierarchical clustering
+      type: Image
+      width: 700
+      height: 600
+      renderFun: .plotclust      
+      
+
+...

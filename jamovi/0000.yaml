@@ -1,0 +1,28 @@
+---
+title: Analysis of data from Q-methodology
+name: QM
+version: 0.9.0
+jms: '1.0'
+authors:
+  - Thomas Leblay
+  - Juliette Victoire
+  - Sébastien Lê
+maintainer: sebastien.le@agrocampus-ouest.fr
+date: '2020-07-20'
+type: R
+description: 'This module allows you to analyze Q-methodology data, the French way. Enjoy.'
+analyses:
+  - title: One concept with MCA
+    name: single
+    ns: QM
+    menuGroup: QM
+    menuTitle: One concept with MCA
+  - title: Two concepts with MFA
+    name: double
+    ns: QM
+    menuGroup: QM
+    menuTitle: Two concepts with MFA
+usesNative: true
+minApp: 1.0.8
+
+...

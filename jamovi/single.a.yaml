@@ -1,0 +1,95 @@
+---
+name:  single
+title: One concept with MCA
+menuGroup: QM
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: data
+      type: Data
+
+    - name: asser
+      title: Statements
+      type: Variables
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+
+    - name: quantisup
+      title: Quantitative supplementary variables
+      type: Variables
+      suggested:
+        - continuous
+      permitted:
+        - numeric
+
+    - name: qualisup
+      title: Categorical supplementary variables
+      type: Variables
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+
+    - name: individus
+      title: Individual labels
+      type: Variable
+      suggested:
+        - nominal
+      permitted:
+        - factor
+
+    - name: nFactors
+      title: Number of factors
+      type: Integer
+      default: 3
+
+    - name: abs
+      title: X-axis
+      type: Integer
+      default: 1
+    
+    - name: ord
+      title: Y-axis
+      type: Integer
+      default: 2
+
+    - name: proba
+      title: Significant threshold
+      type: Number
+      default: 0.05
+      
+    - name: quantimod
+      title: Quantitative supplementary variables
+      type: Bool
+      default: false
+      
+    - name: varmodqualisup
+      title : Categorical supplementary variables
+      type: Bool
+      default: false
+      
+    - name: modality
+      title: Name of modality to plot
+      type: String  
+      
+    - name: ventil
+      title: Ventilation level
+      type: Number
+      default: 0
+      
+    - name: modclust
+      title: Describing modality
+      type: String
+      default: "All"  
+      
+    - name: nbclust
+      title: Number of cluster
+      type: Number
+      default: -1                         
+
+...

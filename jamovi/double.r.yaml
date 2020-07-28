@@ -1,0 +1,62 @@
+---
+name:  double
+title: Analysis of two concepts with MFA
+jrs:   '1.1'
+
+items:
+    - name: eigengroup
+      title: Eigenvalue decomposition
+      type: Group
+      items:
+        - name: eigen
+          title: 'Eigenvalue and (cumulative) percentage of variance'
+          type: Table
+          columns:
+            - name: component
+              title: ''
+              type: 'text'
+            - name: eigenvalue
+              title: 'Eigenvalue'
+              type: number
+            - name: purcent
+              title: '% of the variance'
+              type: number
+            - name: purcentcum
+              title: 'Cumulative %'
+              type: number
+              
+    - name: ploteigen
+      title: Representation of eigenvalues
+      type: Image
+      width:  700
+      height: 600
+      renderFun: .ploteigen 
+      
+    - name: plotgroup
+      title: Quality of group representation
+      type: Image
+      width:  700
+      height: 600
+      renderFun: .plotgroup        
+              
+    - name: plotindiv
+      title: Representation of partial individuals
+      type: Image
+      width:  700
+      height: 600
+      renderFun: .plotindiv
+      
+    - name: plotvar
+      title: Representation of statements
+      type: Image
+      width:  700
+      height: 600
+      renderFun: .plotvar      
+
+    - name: dimdesc
+      title: Automatic description of the axes
+      type: Preformatted
+
+ 
+
+...

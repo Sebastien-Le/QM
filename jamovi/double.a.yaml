@@ -1,0 +1,98 @@
+---
+name:  double
+title: Two concepts with MFA
+menuGroup: QM
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: data
+      type: Data
+
+    - name: asser_g1
+      title: Statements Group 1
+      type: Variables
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+
+    - name: quantisup_g1
+      title: Quantitative supplementary variables Group 1
+      type: Variables
+      suggested:
+        - continuous
+      permitted:
+        - numeric
+
+    - name: qualisup_g1
+      title: Categorical supplementary variables Group 1
+      type: Variables
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+        
+    - name: asser_g2
+      title: Statements Group 2
+      type: Variables
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+
+    - name: quantisup_g2
+      title: Quantitative supplementary variables Group 2
+      type: Variables
+      suggested:
+        - continuous
+      permitted:
+        - numeric
+
+    - name: qualisup_g2
+      title: Categorical supplementary variables Group 2
+      type: Variables
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+
+    - name: individus
+      title: Individual labels
+      type: Variable
+      suggested:
+        - nominal
+      permitted:
+        - factor
+
+    - name: nFactors
+      title: Number of factors
+      type: Integer
+      default: 5
+
+    - name: abs
+      title: X-axis
+      type: Integer
+      default: 1
+    
+    - name: ord
+      title: Y-axis
+      type: Integer
+      default: 2
+
+
+    - name: proba
+      title: Significant threshold
+      type: Number
+      default: 0.05
+      
+    - name: partial
+      title: Within inertia
+      type: List
+      options: ["Biggest", "Smallest"] 
+
+...

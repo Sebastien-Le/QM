@@ -1,0 +1,151 @@
+title: Analysis of one concept with MCA
+name: single
+jus: '3.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: VariableSupplier
+    persistentItems: false
+    stretchFactor: 1
+    children:
+      - type: TargetLayoutBox
+        label: Statements
+        children:
+          - type: VariablesListBox
+            name: asser
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Quantitative supplementary variables
+        children:
+          - type: VariablesListBox
+            name: quantisup
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Categorical supplementary variables
+        children:
+          - type: VariablesListBox
+            name: qualisup
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Individual labels
+        children:
+          - type: VariablesListBox
+            name: individus
+            maxItemCount: 1
+            isTarget: true
+  - type: LayoutBox
+    margin: large
+    stretchFactor: 1
+    children:
+      - type: Label
+        label: Dispersal of individuals
+        stretchFactor: 1
+        children:    
+          - type: TextBox
+            name: ventil
+            format: number                         
+  - type: LayoutBox
+    margin: large
+    stretchFactor: 1
+    children:
+      - type: Label
+        label: Graphic options
+        stretchFactor: 1
+        children:
+          - type: CollapseBox
+            label: Components to plot
+            collapsed: true
+            children:
+              - type: Label
+                label: ''
+                cell:
+                  column: 0
+                  row: 0
+                stretchFactor: 1
+                children:
+                  - type: TextBox
+                    name: abs
+                    format: number
+              - type: Label
+                label: ''
+                cell:
+                  column: 1
+                  row: 0
+                stretchFactor: 1
+                children:
+                  - type: TextBox
+                    name: ord
+                    format: number
+          - type: CollapseBox
+            label: Variable graphic options
+            collapsed: true
+            children:
+              - type: CheckBox
+                name: quantimod
+              - type: CheckBox
+                name: varmodqualisup
+          - type: CollapseBox
+            label: Statements to plot
+            collapsed: true
+            children:
+              - type: TextBox
+                name: modality
+                format: string
+  - type: LayoutBox
+    margin: large
+    stretchFactor: 1
+    children:
+      - type: Label
+        label: Numerical indicators
+        stretchFactor: 1
+        children:
+          - type: CollapseBox
+            label: Automatic description of the axis
+            collapsed: true
+            children:
+              - type: Label
+                label: ''
+                cell:
+                  column: 0
+                  row: 0
+                stretchFactor: 1
+                children:
+                  - type: TextBox
+                    name: proba
+                    format: number
+              - type: Label
+                label: ''
+                cell:
+                  column: 1
+                  row: 0
+                stretchFactor: 1
+                children:
+                  - type: TextBox
+                    name: nFactors
+                    format: number
+          - type: CollapseBox
+            label: Automatic description of cluster
+            collapsed: true
+            children:
+              - type: Label
+                label: ''
+                cell:
+                  column: 0
+                  row: 0
+                stretchFactor: 1
+                children:
+                  - type: TextBox
+                    name: nbclust
+                    format: number
+                    suffix: ' >0'
+              - type: Label
+                label: ''
+                cell:
+                  column: 1
+                  row: 0
+                stretchFactor: 1
+                children:
+                  - type: TextBox
+                    name: modclust
+                    format: string                                     
+
