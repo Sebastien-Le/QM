@@ -1,6 +1,6 @@
 ---
 name:  double
-title: Two concepts with MFA
+title: Two Concepts with MFA
 menuGroup: QM
 version: '1.0.0'
 jas: '1.2'
@@ -72,7 +72,7 @@ options:
     - name: nFactors
       title: Number of factors
       type: Integer
-      default: 5
+      default: 3
 
     - name: abs
       title: X-axis
@@ -86,9 +86,9 @@ options:
 
 
     - name: proba
-      title: Significant threshold
+      title: Significance threshold (%)
       type: Number
-      default: 0.05
+      default: 5
       
     - name: partial
       title: Within inertia

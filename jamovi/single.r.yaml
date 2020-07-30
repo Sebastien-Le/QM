@@ -1,11 +1,11 @@
 ---
 name:  single
-title: Analysis of one concept with MCA
+title: Analysis of One Concept with Multiple Correspondence Analysis
 jrs:   '1.1'
 
 items:
     - name: eigengroup
-      title: Eigenvalue decomposition
+      title: Eigenvalue Decomposition
       type: Group
       items:
         - name: eigen
@@ -19,42 +19,42 @@ items:
               title: 'Eigenvalue'
               type: number
             - name: purcent
-              title: '% of the variance'
+              title: '% of variance'
               type: number
             - name: purcentcum
-              title: 'Cumulative %'
+              title: 'Cumulative % of variance'
               type: number
               
     - name: ploteigen
-      title: Eigenvalue representation
+      title: Eigenvalue Representation
       type: Image
       width:  600
       height: 500
       renderFun: .ploteigen    
       
     - name: distribution
-      title: Statements distribution
+      title: Statements Distribution
       type: Image
       width: 700
       height: 500
       renderFun: .distribution     
               
     - name: plotindiv
-      title: Representation of the respondents
+      title: Representation of the Respondents
       type: Image
       width:  700
       height: 600
       renderFun: .plotindiv
 
     - name: plotvar
-      title: Representation of the statements
+      title: Representation of the Statements
       type: Image
       width:  700
       height: 600
       renderFun: .plotvar
 
     - name: plotquantisup
-      title: Representation of the supplementary variables
+      title: Representation of the Supplementary Variables
       type: Image
       visible: (quantimod)
       width: 700
@@ -62,22 +62,22 @@ items:
       renderFun: .plotquantisup
       
     - name: plotmod
-      title: Representation of statements categories
+      title: Representation of Statements Categories
       type: Image
       width: 700
       height: 600
       renderFun: .plotmod
 
     - name: dimdesc
-      title: Automatic description of the axes
+      title: Automatic Description of the Axes
       type: Preformatted
       
     - name: clust
-      title: Automatic description of cluster
+      title: Automatic Description of the Clusters
       type: Preformatted       
       
     - name: plotclust
-      title: Tree of hierarchical clustering
+      title: Tree from Hierarchical Clustering
       type: Image
       width: 700
       height: 600

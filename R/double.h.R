@@ -13,10 +13,10 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             quantisup_g2 = NULL,
             qualisup_g2 = NULL,
             individus = NULL,
-            nFactors = 5,
+            nFactors = 3,
             abs = 1,
             ord = 2,
-            proba = 0.05,
+            proba = 5,
             partial = NULL, ...) {
 
             super$initialize(
@@ -81,7 +81,7 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             private$..nFactors <- jmvcore::OptionInteger$new(
                 "nFactors",
                 nFactors,
-                default=5)
+                default=3)
             private$..abs <- jmvcore::OptionInteger$new(
                 "abs",
                 abs,
@@ -93,7 +93,7 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             private$..proba <- jmvcore::OptionNumber$new(
                 "proba",
                 proba,
-                default=0.05)
+                default=5)
             private$..partial <- jmvcore::OptionList$new(
                 "partial",
                 partial,
@@ -157,7 +157,7 @@ doubleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             super$initialize(
                 options=options,
                 name="",
-                title="Analysis of two concepts with MFA")
+                title="Analysis of Two Concepts with Multiple Factor Analysis")
             self$add(R6::R6Class(
                 inherit = jmvcore::Group,
                 active = list(
@@ -168,7 +168,7 @@ doubleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         super$initialize(
                             options=options,
                             name="eigengroup",
-                            title="Eigenvalue decomposition")
+                            title="Eigenvalue Decomposition")
                         self$add(jmvcore::Table$new(
                             options=options,
                             name="eigen",
@@ -184,44 +184,44 @@ doubleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                                     `type`="number"),
                                 list(
                                     `name`="purcent", 
-                                    `title`="% of the variance", 
+                                    `title`="% of variance", 
                                     `type`="number"),
                                 list(
                                     `name`="purcentcum", 
-                                    `title`="Cumulative %", 
+                                    `title`="Cumulative % of variance", 
                                     `type`="number"))))}))$new(options=options))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="ploteigen",
-                title="Representation of eigenvalues",
-                width=700,
-                height=600,
+                title="Representation of the Eigenvalues",
+                width=600,
+                height=500,
                 renderFun=".ploteigen"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotgroup",
-                title="Quality of group representation",
-                width=700,
-                height=600,
+                title="Representation of the Groups of Statements",
+                width=600,
+                height=500,
                 renderFun=".plotgroup"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotindiv",
-                title="Representation of partial individuals",
-                width=700,
-                height=600,
+                title="Representation of the Partial Individuals",
+                width=600,
+                height=500,
                 renderFun=".plotindiv"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotvar",
-                title="Representation of statements",
-                width=700,
-                height=600,
+                title="Representation of the Statements",
+                width=600,
+                height=500,
                 renderFun=".plotvar"))
             self$add(jmvcore::Preformatted$new(
                 options=options,
                 name="dimdesc",
-                title="Automatic description of the axes"))}))
+                title="Automatic Description of the Axes"))}))
 
 doubleBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     "doubleBase",
@@ -243,7 +243,7 @@ doubleBase <- if (requireNamespace('jmvcore')) R6::R6Class(
                 requiresMissings = FALSE)
         }))
 
-#' Two concepts with MFA
+#' Two Concepts with MFA
 #'
 #' 
 #' @param data .
@@ -279,10 +279,10 @@ double <- function(
     quantisup_g2,
     qualisup_g2,
     individus,
-    nFactors = 5,
+    nFactors = 3,
     abs = 1,
     ord = 2,
-    proba = 0.05,
+    proba = 5,
     partial) {
 
     if ( ! requireNamespace('jmvcore'))

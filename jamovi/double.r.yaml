@@ -1,11 +1,11 @@
 ---
 name:  double
-title: Analysis of two concepts with MFA
+title: Analysis of Two Concepts with Multiple Factor Analysis
 jrs:   '1.1'
 
 items:
     - name: eigengroup
-      title: Eigenvalue decomposition
+      title: Eigenvalue Decomposition
       type: Group
       items:
         - name: eigen
@@ -19,44 +19,41 @@ items:
               title: 'Eigenvalue'
               type: number
             - name: purcent
-              title: '% of the variance'
+              title: '% of variance'
               type: number
             - name: purcentcum
-              title: 'Cumulative %'
+              title: 'Cumulative % of variance'
               type: number
               
     - name: ploteigen
-      title: Representation of eigenvalues
+      title: Representation of the Eigenvalues
       type: Image
-      width:  700
-      height: 600
+      width:  600
+      height: 500
       renderFun: .ploteigen 
       
     - name: plotgroup
-      title: Quality of group representation
+      title: Representation of the Groups of Statements
       type: Image
-      width:  700
-      height: 600
+      width:  600
+      height: 500
       renderFun: .plotgroup        
               
     - name: plotindiv
-      title: Representation of partial individuals
+      title: Representation of the Partial Individuals
       type: Image
-      width:  700
-      height: 600
+      width:  600
+      height: 500
       renderFun: .plotindiv
       
     - name: plotvar
-      title: Representation of statements
+      title: Representation of the Statements
       type: Image
-      width:  700
-      height: 600
+      width:  600
+      height: 500
       renderFun: .plotvar      
 
     - name: dimdesc
-      title: Automatic description of the axes
+      title: Automatic Description of the Axes
       type: Preformatted
-
- 
-
 ...

@@ -163,7 +163,7 @@ singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             super$initialize(
                 options=options,
                 name="",
-                title="Analysis of one concept with MCA")
+                title="Analysis of One Concept with Multiple Correspondence Analysis")
             self$add(R6::R6Class(
                 inherit = jmvcore::Group,
                 active = list(
@@ -174,7 +174,7 @@ singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         super$initialize(
                             options=options,
                             name="eigengroup",
-                            title="Eigenvalue decomposition")
+                            title="Eigenvalue Decomposition")
                         self$add(jmvcore::Table$new(
                             options=options,
                             name="eigen",
@@ -190,44 +190,44 @@ singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                                     `type`="number"),
                                 list(
                                     `name`="purcent", 
-                                    `title`="% of the variance", 
+                                    `title`="% of variance", 
                                     `type`="number"),
                                 list(
                                     `name`="purcentcum", 
-                                    `title`="Cumulative %", 
+                                    `title`="Cumulative % of variance", 
                                     `type`="number"))))}))$new(options=options))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="ploteigen",
-                title="Eigenvalue representation",
+                title="Eigenvalue Representation",
                 width=600,
                 height=500,
                 renderFun=".ploteigen"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="distribution",
-                title="Statements distribution",
+                title="Statements Distribution",
                 width=700,
                 height=500,
                 renderFun=".distribution"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotindiv",
-                title="Representation of the respondents",
+                title="Representation of the Respondents",
                 width=700,
                 height=600,
                 renderFun=".plotindiv"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotvar",
-                title="Representation of the statements",
+                title="Representation of the Statements",
                 width=700,
                 height=600,
                 renderFun=".plotvar"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotquantisup",
-                title="Representation of the supplementary variables",
+                title="Representation of the Supplementary Variables",
                 visible="(quantimod)",
                 width=700,
                 height=600,
@@ -235,22 +235,22 @@ singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotmod",
-                title="Representation of statements categories",
+                title="Representation of Statements Categories",
                 width=700,
                 height=600,
                 renderFun=".plotmod"))
             self$add(jmvcore::Preformatted$new(
                 options=options,
                 name="dimdesc",
-                title="Automatic description of the axes"))
+                title="Automatic Description of the Axes"))
             self$add(jmvcore::Preformatted$new(
                 options=options,
                 name="clust",
-                title="Automatic description of cluster"))
+                title="Automatic Description of the Clusters"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotclust",
-                title="Tree of hierarchical clustering",
+                title="Tree from Hierarchical Clustering",
                 width=700,
                 height=600,
                 renderFun=".plotclust"))}))
@@ -275,7 +275,7 @@ singleBase <- if (requireNamespace('jmvcore')) R6::R6Class(
                 requiresMissings = FALSE)
         }))
 
-#' One concept with MCA
+#' One Concept with MCA
 #'
 #' 
 #' @param data .

@@ -70,6 +70,7 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
       .dimdesc = function(table) {
         
         proba_gui=self$options$proba
+        proba_gui = proba_gui/100
         nFactors_gui=self$options$nFactors
         
         res=dimdesc(table, axes=1:nFactors_gui, proba = proba_gui)
@@ -81,9 +82,9 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         asser_g1=self$options$asser_g1
         asser_g2=self$options$asser_g2
-        nFactors=self$options$nFactors
+        # nFactors=self$options$nFactors
         
-        MFA(data, ncp=nFactors, group=c(length(asser_g1), length(asser_g2), rep(1,length(asser_g1)+length(asser_g2))), type=rep("n", 2+length(asser_g1)+length(asser_g2)), num.group.sup=c(3:(3+length(asser_g1)+length(asser_g2)-1)), graph=FALSE)
+        MFA(data, group=c(length(asser_g1), length(asser_g2), rep(1,length(asser_g1)+length(asser_g2))), type=rep("n", 2+length(asser_g1)+length(asser_g2)), num.group.sup=c(3:(3+length(asser_g1)+length(asser_g2)-1)), graph=FALSE)
       },
       
       .MFA = function(data) {
@@ -99,75 +100,76 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         if (is.null(quantisup_g1) == FALSE && is.null(qualisup_g1)== TRUE){
           if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2)== TRUE){
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2), length(quantisup_g2)), type=c("n","s","n","s"), name.group=c("group1", "quanti.group1", "group2", "quanti.group2"), num.group.sup=c(2, 4), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2), length(quantisup_g2)), type=c("n","s","n","s"), name.group=c("group1", "quanti.group1", "group2", "quanti.group2"), num.group.sup=c(2, 4), graph=FALSE)
           }
           else if (is.null(quantisup_g2)==TRUE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2), length(qualisup_g2)), type=c("n","s","n","n"), name.group=c("group1", "quanti.group1", "group2", "quali.group2"), num.group.sup=c(2, 4), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2), length(qualisup_g2)), type=c("n","s","n","n"), name.group=c("group1", "quanti.group1", "group2", "quali.group2"), num.group.sup=c(2, 4), graph=FALSE)
           }
           else if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","s","n","s","n"), name.group=c("group1", "quanti.group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(2, 4, 5), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","s","n","s","n"), name.group=c("group1", "quanti.group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(2, 4, 5), graph=FALSE)
           }
           else {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2)), type=c("n","s","n"), name.group=c("group1", "quanti.group1", "group2"), num.group.sup=c(2), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(asser_g2)), type=c("n","s","n"), name.group=c("group1", "quanti.group1", "group2"), num.group.sup=c(2), graph=FALSE)
           }
         }
         else if (is.null(quantisup_g1)==TRUE && is.null(qualisup_g1) == FALSE) {
           chiffre=2
           if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2)== TRUE){
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2)), type=c("n","n","n","s"), name.group=c("group1", "quali.group1", "group2", "quanti.group2"), num.group.sup=c(2, 4), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2)), type=c("n","n","n","s"), name.group=c("group1", "quali.group1", "group2", "quanti.group2"), num.group.sup=c(2, 4), graph=FALSE)
           }
           else if (is.null(quantisup_g2)==TRUE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2), length(qualisup_g2)), type=c("n","n","n","n"), name.group=c("group1", "quali.group1", "group2", "quali.group2"), num.group.sup=c(2, 4), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2), length(qualisup_g2)), type=c("n","n","n","n"), name.group=c("group1", "quali.group1", "group2", "quali.group2"), num.group.sup=c(2, 4), graph=FALSE)
           }
           else if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","n","n","s","n"), name.group=c("group1", "quali.group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(2, 4, 5), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","n","n","s","n"), name.group=c("group1", "quali.group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(2, 4, 5), graph=FALSE)
           }
           else {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2)), type=c("n","n","n"), name.group=c("group1", "quali.group1", "group2"), num.group.sup=c(2), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2)), type=c("n","n","n"), name.group=c("group1", "quali.group1", "group2"), num.group.sup=c(2), graph=FALSE)
           }
         }
         else if (is.null(quantisup_g1) == FALSE && is.null(qualisup_g1) == FALSE) {
           if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2)== TRUE){
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2)), type=c("n","s","n","n","s"), name.group=c("group1", "quanti.group1", "quali.group1", "group2", "quanti.group2"), num.group.sup=c(2, 3, 5), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2)), type=c("n","s","n","n","s"), name.group=c("group1", "quanti.group1", "quali.group1", "group2", "quanti.group2"), num.group.sup=c(2, 3, 5), graph=FALSE)
           }
           else if (is.null(quantisup_g2)==TRUE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2), length(qualisup_g2)), type=c("n","s","n","n","n"), name.group=c("group1", "quanti.group1", "quali.group1", "group2", "quali.group2"), num.group.sup=c(2, 3, 5), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2), length(qualisup_g2)), type=c("n","s","n","n","n"), name.group=c("group1", "quanti.group1", "quali.group1", "group2", "quali.group2"), num.group.sup=c(2, 3, 5), graph=FALSE)
           }
           else if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","s","n","n","s","n"), name.group=c("group1", "quanti.group1", "quali.group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(2, 3, 5, 6), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","s","n","n","s","n"), name.group=c("group1", "quanti.group1", "quali.group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(2, 3, 5, 6), graph=FALSE)
           }
           else {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2)), type=c("n","s","n","n"), name.group=c("group1", "quanti.group1", "quali.group1", "group2"), num.group.sup=c(2, 3), graph=FALSE)
+            MFA(data, group=c(length(asser_g1), length(quantisup_g1), length(qualisup_g1), length(asser_g2)), type=c("n","s","n","n"), name.group=c("group1", "quanti.group1", "quali.group1", "group2"), num.group.sup=c(2, 3), graph=FALSE)
           }
         }
         else {
           if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2)== TRUE){
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(asser_g2), length(quantisup_g2)), type=c("n","n","s"), name.group=c("group1", "group2", "quanti.group2"), num.group.sup=c(3), graph=FALSE)
+            MFA(data,  group=c(length(asser_g1), length(asser_g2), length(quantisup_g2)), type=c("n","n","s"), name.group=c("group1", "group2", "quanti.group2"), num.group.sup=c(3), graph=FALSE)
           }
           else if (is.null(quantisup_g2)==TRUE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(asser_g2), length(qualisup_g2)), type=c("n","n","n"), name.group=c("group1", "group2", "quali.group2"), num.group.sup=c(3), graph=FALSE)
+            MFA(data,  group=c(length(asser_g1), length(asser_g2), length(qualisup_g2)), type=c("n","n","n"), name.group=c("group1", "group2", "quali.group2"), num.group.sup=c(3), graph=FALSE)
           }
           else if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2) == FALSE) {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","n","s","n"), name.group=c("group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(3, 4), graph=FALSE)
+            MFA(data,  group=c(length(asser_g1), length(asser_g2), length(quantisup_g2), length(qualisup_g2)), type=c("n","n","s","n"), name.group=c("group1", "group2", "quanti.group2", "quali.group2"), num.group.sup=c(3, 4), graph=FALSE)
           }
           else {
-            MFA(data, ncp=nFactors, group=c(length(asser_g1), length(asser_g2)), type=c("n","n"), name.group=c("group1", "group2"), graph=FALSE)
+            MFA(data,  group=c(length(asser_g1), length(asser_g2)), type=c("n","n"), name.group=c("group1", "group2"), graph=FALSE)
           }
         }
       },
       
       .printeigenTable = function(table){
         
-        nFactors=self$options$nFactors
-        
-        for (i in 1:nFactors){
+        # nFactors=self$options$nFactors
+        nbdim=min(dim(table$eig)[1],10)
+        for (i in 1:nbdim){
           self$results$eigengroup$eigen$addRow(rowKey=i, values=list(component=as.character(i))) 
         } #on cr?e les lignes du tableau, avec autant de facteurs qu'il y a de variables actives
         eigen=table$eig[,1]
         purcent=table$eig[,2]
         purcentcum=table$eig[,3]
         
-        for (i in 1:nFactors) {
+        nbdim=min(dim(table$eig)[1],10)
+        for (i in 1:nbdim) {
           row=list()
           row[["eigenvalue"]]=eigen[i] #   ? chaque nom de colonne (eigenvalue, purcent et purcentcum)
           row[["purcent"]]=purcent[i] #    on associe
@@ -247,9 +249,9 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         else {
           res.mfa=image$state
-          nFactors=self$options$nFactors
+          # nFactors=self$options$nFactors
           
-          plot = factoextra::fviz_eig(res.mfa, ncp = nFactors, addlabels = TRUE, main="")
+          plot = factoextra::fviz_eig(res.mfa, addlabels = TRUE, main="")
           print(plot)
           TRUE
         }

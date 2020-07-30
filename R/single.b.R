@@ -84,33 +84,35 @@ singleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         qualisup_gui=self$options$qualisup
         nFactors_gui=self$options$nFactors
         ventil=self$options$ventil
+        ventil=ventil/100
         
         if (is.null(quantisup_gui) == FALSE && is.null(qualisup_gui)== TRUE) {
-          FactoMineR::MCA(data, quanti.sup=(length(asser_gui)+1):(length(asser_gui)+length(quantisup_gui)), ncp=nFactors_gui, level.ventil=ventil, graph=FALSE)
+          FactoMineR::MCA(data, quanti.sup=(length(asser_gui)+1):(length(asser_gui)+length(quantisup_gui)), level.ventil=ventil, graph=FALSE)
         }
         else if (is.null(quantisup_gui)==TRUE && is.null(qualisup_gui) == FALSE) {
-          FactoMineR::MCA(data, quali.sup=(length(asser_gui)+1):(length(asser_gui)+length(qualisup_gui)), ncp=nFactors_gui, level.ventil=ventil, graph=FALSE)
+          FactoMineR::MCA(data, quali.sup=(length(asser_gui)+1):(length(asser_gui)+length(qualisup_gui)), level.ventil=ventil, graph=FALSE)
         }
         else if (is.null(quantisup_gui) == FALSE && is.null(qualisup_gui) == FALSE) {
-          FactoMineR::MCA(data, quanti.sup=(length(asser_gui)+1):(length(asser_gui)+length(quantisup_gui)), quali.sup=(length(asser_gui)+length(quantisup_gui)+1):(length(asser_gui)+length(quantisup_gui)+length(qualisup_gui)), ncp=nFactors_gui, level.ventil=ventil, graph=FALSE)
+          FactoMineR::MCA(data, quanti.sup=(length(asser_gui)+1):(length(asser_gui)+length(quantisup_gui)), quali.sup=(length(asser_gui)+length(quantisup_gui)+1):(length(asser_gui)+length(quantisup_gui)+length(qualisup_gui)), level.ventil=ventil, graph=FALSE)
         }
         else {
-          FactoMineR::MCA(data, ncp=nFactors_gui, level.ventil=ventil, graph=FALSE)
+          FactoMineR::MCA(data, level.ventil=ventil, graph=FALSE)
         }
       },
       
       .printeigenTable = function(table){
         
-        nFactors=self$options$nFactors
+        # nFactors=self$options$nFactors
+        nbdim=min(dim(table$eig)[1],10)
         
-        for (i in 1:nFactors){
+        for (i in 1:nbdim){
           self$results$eigengroup$eigen$addRow(rowKey=i, values=list(component=as.character(i))) 
-        } #on cr?e les lignes du tableau, avec autant de facteurs qu'il y a de variables actives
+        }
         eigen=table$eig[,1]
         purcent=table$eig[,2]
         purcentcum=table$eig[,3]
         
-        for (i in 1:nFactors) {
+        for (i in 1:nbdim) {
           row=list()
           row[["eigenvalue"]]=eigen[i] #   ? chaque nom de colonne (eigenvalue, purcent et purcentcum)
           row[["purcent"]]=purcent[i] #    on associe
@@ -200,9 +202,8 @@ singleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         else {
           res.mca=image$state
-          nFactors=self$options$nFactors
-          
-          plot = factoextra::fviz_eig(res.mca, ncp = nFactors, addlabels = TRUE, main="")
+          # nFactors=self$options$nFactors
+          plot = factoextra::fviz_eig(res.mca, addlabels = TRUE, main="")
           print(plot)
           TRUE
         }

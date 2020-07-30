@@ -1,6 +1,6 @@
 ---
 name:  single
-title: One concept with MCA
+title: One Concept with MCA
 menuGroup: QM
 version: '1.0.0'
 jas: '1.2'
@@ -19,7 +19,7 @@ options:
         - factor
 
     - name: quantisup
-      title: Quantitative supplementary variables
+      title: Quantitative Supplementary Variables
       type: Variables
       suggested:
         - continuous
@@ -27,7 +27,7 @@ options:
         - numeric
 
     - name: qualisup
-      title: Categorical supplementary variables
+      title: Categorical Supplementary Variables
       type: Variables
       suggested:
         - nominal
@@ -36,7 +36,7 @@ options:
         - factor
 
     - name: individus
-      title: Individual labels
+      title: Individual Labels
       type: Variable
       suggested:
         - nominal
@@ -59,7 +59,7 @@ options:
       default: 2
 
     - name: proba
-      title: Significant threshold
+      title: Significance threshold
       type: Number
       default: 0.05
       
@@ -74,11 +74,11 @@ options:
       default: false
       
     - name: modality
-      title: Name of modality to plot
+      title: Level of modality to plot
       type: String  
       
     - name: ventil
-      title: Ventilation level
+      title: Ventilation level (%)
       type: Number
       default: 0
       
@@ -88,7 +88,7 @@ options:
       default: "All"  
       
     - name: nbclust
-      title: Number of cluster
+      title: Number of clusters
       type: Number
       default: -1                         
 

@@ -12,16 +12,23 @@ date: '2020-07-20'
 type: R
 description: 'This module allows you to analyze Q-methodology data, the French way. Enjoy.'
 analyses:
-  - title: One concept with MCA
+  - title: One Concept with MCA
     name: single
     ns: QM
     menuGroup: QM
-    menuTitle: One concept with MCA
-  - title: Two concepts with MFA
+    menuTitle: One Concept with MCA
+  - title: Two Concepts with MFA
     name: double
     ns: QM
     menuGroup: QM
-    menuTitle: Two concepts with MFA
+    menuTitle: Two Concepts with MFA
+datasets:
+  - name: herotravel
+    path: HeroTravel.csv
+    description: Perception of the concept of hero and travel
+    tags:
+      - MCA
+      - MFA
 usesNative: true
 minApp: 1.0.8
 
