@@ -1,45 +1,49 @@
 
-# This file is a generated template, your changes will not be overwritten
-
 doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
     "doubleClass",
     inherit = doubleBase,
     private = list(
       .run = function() {
+
+        ready <- TRUE
+        if (is.null(self$options$asser_g1) || is.null(self$options$asser_g2)) {
+          return()
+          ready <- FALSE
+        }
+        private$.errorCheck()
+        # if (is.null(self$options$asser_g1) || is.null(self$options$asser_g2)) return()
         
-        if (is.null(self$options$asser_g1) || is.null(self$options$asser_g2)) return()
+        # else if ((length(self$options$asser_g1) < self$options$nFactors) ||(length(self$options$asser_g2) < self$options$nFactors))
+        #   self$results$dimdesc$setError("The number of factors is too low")
         
-        else if ((length(self$options$asser_g1) < self$options$nFactors) ||(length(self$options$asser_g2) < self$options$nFactors))
-          self$results$dimdesc$setError("The number of factors is too low")
-        
-        else{
+        if (ready) {
           
-          dataasser1=data.frame(self$data[,self$options$asser_g1])
-          colnames(dataasser1)=self$options$asser_g1
-          
-          dataquantisup1=data.frame(self$data[,self$options$quantisup_g1])
-          colnames(dataquantisup1)=self$options$quantisup_g1
-          
-          dataqualisup1=data.frame(self$data[,self$options$qualisup_g1])
-          colnames(dataqualisup1)=self$options$qualisup_g1
-          
-          dataasser2=data.frame(self$data[,self$options$asser_g2])
-          colnames(dataasser2)=self$options$asser_g2
-          
-          dataquantisup2=data.frame(self$data[,self$options$quantisup_g2])
-          colnames(dataquantisup2)=self$options$quantisup_g2
-          
-          dataqualisup2=data.frame(self$data[,self$options$qualisup_g2])
-          colnames(dataqualisup2)=self$options$qualisup_g2
-          
-          data=data.frame(dataasser1,dataquantisup1,dataqualisup1,dataasser2,dataquantisup2,dataqualisup2)
-          
-          if (is.null(self$options$individus)==FALSE) {
-            rownames(data)=self$data[[self$options$individus]]
-          }
-          else
-            rownames(data)=c(1:nrow(data))
-          
+          # dataasser1=data.frame(self$data[,self$options$asser_g1])
+          # colnames(dataasser1)=self$options$asser_g1
+          # 
+          # dataquantisup1=data.frame(self$data[,self$options$quantisup_g1])
+          # colnames(dataquantisup1)=self$options$quantisup_g1
+          # 
+          # dataqualisup1=data.frame(self$data[,self$options$qualisup_g1])
+          # colnames(dataqualisup1)=self$options$qualisup_g1
+          # 
+          # dataasser2=data.frame(self$data[,self$options$asser_g2])
+          # colnames(dataasser2)=self$options$asser_g2
+          # 
+          # dataquantisup2=data.frame(self$data[,self$options$quantisup_g2])
+          # colnames(dataquantisup2)=self$options$quantisup_g2
+          # 
+          # dataqualisup2=data.frame(self$data[,self$options$qualisup_g2])
+          # colnames(dataqualisup2)=self$options$qualisup_g2
+          # 
+          # data=data.frame(dataasser1,dataquantisup1,dataqualisup1,dataasser2,dataquantisup2,dataqualisup2)
+          # 
+          # if (is.null(self$options$individus)==FALSE) {
+          #   rownames(data)=self$data[[self$options$individus]]
+          # }
+          # else
+          # rownames(data)=c(1:nrow(data))
+          data <- private$.buildData()
           res.mfa=private$.MFA(data)
 
           dimdesc=private$.dimdesc(res.mfa)
@@ -55,12 +59,12 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
 
           self$results$ploteigen$setState(res.mfa)
           
-          dataasser=data.frame(dataasser1,dataasser2,dataasser1,dataasser2)
-          res.mfa.var=private$.varMFA(dataasser)
+          # dataasser=data.frame(dataasser1,dataasser2,dataasser1,dataasser2)
+          res.mfa.var=private$.varMFA(data)
           
           coord=as.data.frame(res.mfa.var$group$coord.sup)
           coord$var=c(self$options$asser_g1,self$options$asser_g2)
-          coord$group=c(rep("1", length(self$options$asser_g1)),rep("2", length(self$options$asser_g2)))
+          coord$Group=c(rep("1", length(self$options$asser_g1)),rep("2", length(self$options$asser_g2)))
           
           imagevar=self$results$plotvar
           imagevar$setState(coord)
@@ -82,20 +86,22 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         asser_g1=self$options$asser_g1
         asser_g2=self$options$asser_g2
-        # nFactors=self$options$nFactors
-        
-        MFA(data, group=c(length(asser_g1), length(asser_g2), rep(1,length(asser_g1)+length(asser_g2))), type=rep("n", 2+length(asser_g1)+length(asser_g2)), num.group.sup=c(3:(3+length(asser_g1)+length(asser_g2)-1)), graph=FALSE)
+        data_var_act <- cbind(data[,c(asser_g1,asser_g2)],data[,c(asser_g1,asser_g2)]) 
+        MFA(data_var_act, group=c(length(asser_g1), length(asser_g2), rep(1,length(asser_g1)+length(asser_g2))), type=rep("n", 2+length(asser_g1)+length(asser_g2)), num.group.sup=c(3:(3+length(asser_g1)+length(asser_g2)-1)), graph=FALSE)
       },
       
       .MFA = function(data) {
         
         asser_g1=self$options$asser_g1
+        asser_g2=self$options$asser_g2
+        
         quantisup_g1=self$options$quantisup_g1
         qualisup_g1=self$options$qualisup_g1
-        asser_g2=self$options$asser_g2
+        
         quantisup_g2=self$options$quantisup_g2
         qualisup_g2=self$options$qualisup_g2
-        nFactors=self$options$nFactors
+        
+        # nFactors=self$options$nFactors
         
         
         if (is.null(quantisup_g1) == FALSE && is.null(qualisup_g1)== TRUE){
@@ -113,7 +119,7 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
           }
         }
         else if (is.null(quantisup_g1)==TRUE && is.null(qualisup_g1) == FALSE) {
-          chiffre=2
+          # chiffre=2
           if (is.null(quantisup_g2) == FALSE && is.null(qualisup_g2)== TRUE){
             MFA(data, group=c(length(asser_g1), length(qualisup_g1), length(asser_g2), length(quantisup_g2)), type=c("n","n","n","s"), name.group=c("group1", "quali.group1", "group2", "quanti.group2"), num.group.sup=c(2, 4), graph=FALSE)
           }
@@ -228,16 +234,19 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
           abs=self$options$abs
           ord=self$options$ord
           
-          df=cbind(coord[,c(abs,ord)],coord[,c("var", "group")])
+          df=cbind(coord[,c(abs,ord)],coord[,c("var", "Group")])
           colnames(df)[1:2]=c("X","Y")
           
-          plot=ggplot(df, aes(x=X, y=Y))+geom_point(aes(colour=group))+
+          plot=ggplot(df, aes(x=X, y=Y))+geom_point(aes(colour=Group))+
             geom_text_repel(aes(label=var), hjust=0.5, vjust=-1)+
             labs(x=paste("Dim",abs), y=paste("Dim",ord))+
             theme(legend.title = element_text(colour = "steelblue",  face = "bold.italic"), 
                   legend.text = element_text(face = "italic", colour="steelblue4"), 
                   axis.title = element_text(size = (10), colour = "steelblue4"),
-                  axis.text = element_text(colour = "cornflowerblue", size = (10)))
+                  axis.text = element_text(colour = "cornflowerblue", size = (10)))+
+            coord_fixed(ratio = 1)+
+            expand_limits(x=c(0,1), y=c(0,1))
+            
           print(plot)
           TRUE
         }
@@ -249,13 +258,43 @@ doubleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         else {
           res.mfa=image$state
-          # nFactors=self$options$nFactors
-          
           plot = factoextra::fviz_eig(res.mfa, addlabels = TRUE, main="")
           print(plot)
           TRUE
         }
         
+      },
+      
+      ### Helper functions ----
+      .errorCheck = function() {
+        if ((length(self$options$asser_g1) < 2) | (length(self$options$asser_g2) < 2))
+          jmvcore::reject(jmvcore::format('The number of statements is too low'))
+        
+      },
+      
+      .buildData = function() {
+        
+        dataasser1=data.frame(self$data[,self$options$asser_g1])
+        colnames(dataasser1)=self$options$asser_g1
+        
+        dataquantisup1=data.frame(self$data[,self$options$quantisup_g1])
+        colnames(dataquantisup1)=self$options$quantisup_g1
+        
+        dataqualisup1=data.frame(self$data[,self$options$qualisup_g1])
+        colnames(dataqualisup1)=self$options$qualisup_g1
+        
+        dataasser2=data.frame(self$data[,self$options$asser_g2])
+        colnames(dataasser2)=self$options$asser_g2
+        
+        dataquantisup2=data.frame(self$data[,self$options$quantisup_g2])
+        colnames(dataquantisup2)=self$options$quantisup_g2
+        
+        dataqualisup2=data.frame(self$data[,self$options$qualisup_g2])
+        colnames(dataqualisup2)=self$options$qualisup_g2
+        
+        data=data.frame(dataasser1,dataquantisup1,dataqualisup1,dataasser2,dataquantisup2,dataqualisup2)
+        
+        return(data)
       }
     )
 )

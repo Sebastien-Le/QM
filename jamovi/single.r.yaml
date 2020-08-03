@@ -4,8 +4,15 @@ title: Analysis of One Concept with Multiple Correspondence Analysis
 jrs:   '1.1'
 
 items:
+    - name: distribution
+      title: Statements Distribution
+      type: Image
+      width: 600
+      height: 500
+      renderFun: .distribution     
+
     - name: eigengroup
-      title: Eigenvalue Decomposition
+      title: Eigenvalues Decomposition
       type: Group
       items:
         - name: eigen
@@ -19,69 +26,70 @@ items:
               title: 'Eigenvalue'
               type: number
             - name: purcent
-              title: '% of variance'
+              title: '% of Variance'
               type: number
             - name: purcentcum
-              title: 'Cumulative % of variance'
+              title: 'Cumulative %'
               type: number
               
     - name: ploteigen
-      title: Eigenvalue Representation
+      title: Eigenvalues Representation
       type: Image
       width:  600
       height: 500
       renderFun: .ploteigen    
-      
-    - name: distribution
-      title: Statements Distribution
-      type: Image
-      width: 700
-      height: 500
-      renderFun: .distribution     
-              
+                    
     - name: plotindiv
       title: Representation of the Respondents
       type: Image
-      width:  700
-      height: 600
+      width:  600
+      height: 500
       renderFun: .plotindiv
 
     - name: plotvar
       title: Representation of the Statements
       type: Image
-      width:  700
-      height: 600
+      width:  600
+      height: 500
       renderFun: .plotvar
 
-    - name: plotquantisup
-      title: Representation of the Supplementary Variables
-      type: Image
-      visible: (quantimod)
-      width: 700
-      height: 600
-      renderFun: .plotquantisup
-      
     - name: plotmod
       title: Representation of Statements Categories
       type: Image
-      width: 700
-      height: 600
+      width: 600
+      height: 500
       renderFun: .plotmod
 
+    - name: plotqualisup
+      title: Representation of the Supplementary Categorical Variables
+      type: Image
+      visible: (varmodqualisup)
+      width: 600
+      height: 500
+      renderFun: .plotqualisup
+
+    - name: plotquantisup
+      title: Representation of the Supplementary Quantitative Variables
+      type: Image
+      visible: (quantimod)
+      width: 600
+      height: 500
+      renderFun: .plotquantisup
+      
     - name: dimdesc
       title: Automatic Description of the Axes
       type: Preformatted
-      
-    - name: clust
-      title: Automatic Description of the Clusters
-      type: Preformatted       
-      
+            
     - name: plotclust
       title: Tree from Hierarchical Clustering
       type: Image
-      width: 700
-      height: 600
+      width: 600
+      height: 500
       renderFun: .plotclust      
+
+    - name: clust
+      title: Automatic Description of the Clusters
+      type: Preformatted       
       
 
 ...

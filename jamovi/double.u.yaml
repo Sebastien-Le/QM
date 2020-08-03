@@ -9,35 +9,16 @@ children:
     stretchFactor: 1
     children:
       - type: TargetLayoutBox
-        label: Individual Labels
-        children:
-          - type: VariablesListBox
-            name: individus
-            maxItemCount: 1
-            isTarget: true
-      - type: TargetLayoutBox
-        label: Statements Group 1
+        label: Statements Group 1 (>2)
         children:
           - type: VariablesListBox
             name: asser_g1
             isTarget: true
       - type: TargetLayoutBox
-        label: Statements Group 2
+        label: Statements Group 2 (>2)
         children:
           - type: VariablesListBox
             name: asser_g2
-            isTarget: true
-      - type: TargetLayoutBox
-        label: Quantitative Supplementary Variables Group 1
-        children:
-          - type: VariablesListBox
-            name: quantisup_g1
-            isTarget: true
-      - type: TargetLayoutBox
-        label: Quantitative Supplementary Variables Group 2
-        children:
-          - type: VariablesListBox
-            name: quantisup_g2
             isTarget: true
       - type: TargetLayoutBox
         label: Categorical Supplementary Variables Group 1
@@ -51,6 +32,18 @@ children:
           - type: VariablesListBox
             name: qualisup_g2
             isTarget: true            
+      - type: TargetLayoutBox
+        label: Quantitative Supplementary Variables Group 1
+        children:
+          - type: VariablesListBox
+            name: quantisup_g1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Quantitative Supplementary Variables Group 2
+        children:
+          - type: VariablesListBox
+            name: quantisup_g2
+            isTarget: true
   - type: LayoutBox
     margin: large
     stretchFactor: 1

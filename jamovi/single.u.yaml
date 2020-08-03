@@ -9,29 +9,22 @@ children:
     stretchFactor: 1
     children:
       - type: TargetLayoutBox
-        label: Individual Labels
-        children:
-          - type: VariablesListBox
-            name: individus
-            maxItemCount: 1
-            isTarget: true
-      - type: TargetLayoutBox
-        label: Statements
+        label: Statements (>2)
         children:
           - type: VariablesListBox
             name: asser
-            isTarget: true
-      - type: TargetLayoutBox
-        label: Quantitative Supplementary Variables
-        children:
-          - type: VariablesListBox
-            name: quantisup
             isTarget: true
       - type: TargetLayoutBox
         label: Categorical Supplementary Variables
         children:
           - type: VariablesListBox
             name: qualisup
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Quantitative Supplementary Variables
+        children:
+          - type: VariablesListBox
+            name: quantisup
             isTarget: true
   - type: LayoutBox
     margin: large
@@ -77,20 +70,20 @@ children:
                     name: ord
                     format: number
           - type: CollapseBox
-            label: Variable Graphic Options
-            collapsed: true
-            children:
-              - type: CheckBox
-                name: quantimod
-              - type: CheckBox
-                name: varmodqualisup
-          - type: CollapseBox
             label: Statements to Plot
             collapsed: true
             children:
               - type: TextBox
                 name: modality
                 format: string
+          - type: CollapseBox
+            label: Variable Graphic Options
+            collapsed: true
+            children:
+              - type: CheckBox
+                name: varmodqualisup
+              - type: CheckBox
+                name: quantimod
   - type: LayoutBox
     margin: large
     stretchFactor: 1

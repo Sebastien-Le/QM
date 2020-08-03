@@ -9,13 +9,12 @@ singleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             asser = NULL,
             quantisup = NULL,
             qualisup = NULL,
-            individus = NULL,
             nFactors = 3,
             abs = 1,
             ord = 2,
             proba = 0.05,
-            quantimod = FALSE,
             varmodqualisup = FALSE,
+            quantimod = FALSE,
             modality = NULL,
             ventil = 0,
             modclust = "All",
@@ -50,13 +49,6 @@ singleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "ordinal"),
                 permitted=list(
                     "factor"))
-            private$..individus <- jmvcore::OptionVariable$new(
-                "individus",
-                individus,
-                suggested=list(
-                    "nominal"),
-                permitted=list(
-                    "factor"))
             private$..nFactors <- jmvcore::OptionInteger$new(
                 "nFactors",
                 nFactors,
@@ -73,13 +65,13 @@ singleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                 "proba",
                 proba,
                 default=0.05)
-            private$..quantimod <- jmvcore::OptionBool$new(
-                "quantimod",
-                quantimod,
-                default=FALSE)
             private$..varmodqualisup <- jmvcore::OptionBool$new(
                 "varmodqualisup",
                 varmodqualisup,
+                default=FALSE)
+            private$..quantimod <- jmvcore::OptionBool$new(
+                "quantimod",
+                quantimod,
                 default=FALSE)
             private$..modality <- jmvcore::OptionString$new(
                 "modality",
@@ -100,13 +92,12 @@ singleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..asser)
             self$.addOption(private$..quantisup)
             self$.addOption(private$..qualisup)
-            self$.addOption(private$..individus)
             self$.addOption(private$..nFactors)
             self$.addOption(private$..abs)
             self$.addOption(private$..ord)
             self$.addOption(private$..proba)
-            self$.addOption(private$..quantimod)
             self$.addOption(private$..varmodqualisup)
+            self$.addOption(private$..quantimod)
             self$.addOption(private$..modality)
             self$.addOption(private$..ventil)
             self$.addOption(private$..modclust)
@@ -116,13 +107,12 @@ singleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         asser = function() private$..asser$value,
         quantisup = function() private$..quantisup$value,
         qualisup = function() private$..qualisup$value,
-        individus = function() private$..individus$value,
         nFactors = function() private$..nFactors$value,
         abs = function() private$..abs$value,
         ord = function() private$..ord$value,
         proba = function() private$..proba$value,
-        quantimod = function() private$..quantimod$value,
         varmodqualisup = function() private$..varmodqualisup$value,
+        quantimod = function() private$..quantimod$value,
         modality = function() private$..modality$value,
         ventil = function() private$..ventil$value,
         modclust = function() private$..modclust$value,
@@ -131,13 +121,12 @@ singleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..asser = NA,
         ..quantisup = NA,
         ..qualisup = NA,
-        ..individus = NA,
         ..nFactors = NA,
         ..abs = NA,
         ..ord = NA,
         ..proba = NA,
-        ..quantimod = NA,
         ..varmodqualisup = NA,
+        ..quantimod = NA,
         ..modality = NA,
         ..ventil = NA,
         ..modclust = NA,
@@ -147,16 +136,17 @@ singleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
 singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
     inherit = jmvcore::Group,
     active = list(
+        distribution = function() private$.items[["distribution"]],
         eigengroup = function() private$.items[["eigengroup"]],
         ploteigen = function() private$.items[["ploteigen"]],
-        distribution = function() private$.items[["distribution"]],
         plotindiv = function() private$.items[["plotindiv"]],
         plotvar = function() private$.items[["plotvar"]],
-        plotquantisup = function() private$.items[["plotquantisup"]],
         plotmod = function() private$.items[["plotmod"]],
+        plotqualisup = function() private$.items[["plotqualisup"]],
+        plotquantisup = function() private$.items[["plotquantisup"]],
         dimdesc = function() private$.items[["dimdesc"]],
-        clust = function() private$.items[["clust"]],
-        plotclust = function() private$.items[["plotclust"]]),
+        plotclust = function() private$.items[["plotclust"]],
+        clust = function() private$.items[["clust"]]),
     private = list(),
     public=list(
         initialize=function(options) {
@@ -164,6 +154,13 @@ singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                 options=options,
                 name="",
                 title="Analysis of One Concept with Multiple Correspondence Analysis")
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="distribution",
+                title="Statements Distribution",
+                width=600,
+                height=500,
+                renderFun=".distribution"))
             self$add(R6::R6Class(
                 inherit = jmvcore::Group,
                 active = list(
@@ -174,7 +171,7 @@ singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         super$initialize(
                             options=options,
                             name="eigengroup",
-                            title="Eigenvalue Decomposition")
+                            title="Eigenvalues Decomposition")
                         self$add(jmvcore::Table$new(
                             options=options,
                             name="eigen",
@@ -190,70 +187,71 @@ singleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                                     `type`="number"),
                                 list(
                                     `name`="purcent", 
-                                    `title`="% of variance", 
+                                    `title`="% of Variance", 
                                     `type`="number"),
                                 list(
                                     `name`="purcentcum", 
-                                    `title`="Cumulative % of variance", 
+                                    `title`="Cumulative %", 
                                     `type`="number"))))}))$new(options=options))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="ploteigen",
-                title="Eigenvalue Representation",
+                title="Eigenvalues Representation",
                 width=600,
                 height=500,
                 renderFun=".ploteigen"))
             self$add(jmvcore::Image$new(
                 options=options,
-                name="distribution",
-                title="Statements Distribution",
-                width=700,
-                height=500,
-                renderFun=".distribution"))
-            self$add(jmvcore::Image$new(
-                options=options,
                 name="plotindiv",
                 title="Representation of the Respondents",
-                width=700,
-                height=600,
+                width=600,
+                height=500,
                 renderFun=".plotindiv"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotvar",
                 title="Representation of the Statements",
-                width=700,
-                height=600,
+                width=600,
+                height=500,
                 renderFun=".plotvar"))
-            self$add(jmvcore::Image$new(
-                options=options,
-                name="plotquantisup",
-                title="Representation of the Supplementary Variables",
-                visible="(quantimod)",
-                width=700,
-                height=600,
-                renderFun=".plotquantisup"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotmod",
                 title="Representation of Statements Categories",
-                width=700,
-                height=600,
+                width=600,
+                height=500,
                 renderFun=".plotmod"))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="plotqualisup",
+                title="Representation of the Supplementary Categorical Variables",
+                visible="(varmodqualisup)",
+                width=600,
+                height=500,
+                renderFun=".plotqualisup"))
+            self$add(jmvcore::Image$new(
+                options=options,
+                name="plotquantisup",
+                title="Representation of the Supplementary Quantitative Variables",
+                visible="(quantimod)",
+                width=600,
+                height=500,
+                renderFun=".plotquantisup"))
             self$add(jmvcore::Preformatted$new(
                 options=options,
                 name="dimdesc",
                 title="Automatic Description of the Axes"))
-            self$add(jmvcore::Preformatted$new(
-                options=options,
-                name="clust",
-                title="Automatic Description of the Clusters"))
             self$add(jmvcore::Image$new(
                 options=options,
                 name="plotclust",
                 title="Tree from Hierarchical Clustering",
-                width=700,
-                height=600,
-                renderFun=".plotclust"))}))
+                width=600,
+                height=500,
+                renderFun=".plotclust"))
+            self$add(jmvcore::Preformatted$new(
+                options=options,
+                name="clust",
+                title="Automatic Description of the Clusters"))}))
 
 singleBase <- if (requireNamespace('jmvcore')) R6::R6Class(
     "singleBase",
@@ -282,29 +280,29 @@ singleBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param asser .
 #' @param quantisup .
 #' @param qualisup .
-#' @param individus .
 #' @param nFactors .
 #' @param abs .
 #' @param ord .
 #' @param proba .
-#' @param quantimod .
 #' @param varmodqualisup .
+#' @param quantimod .
 #' @param modality .
 #' @param ventil .
 #' @param modclust .
 #' @param nbclust .
 #' @return A results object containing:
 #' \tabular{llllll}{
+#'   \code{results$distribution} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$eigengroup$eigen} \tab \tab \tab \tab \tab a table \cr
 #'   \code{results$ploteigen} \tab \tab \tab \tab \tab an image \cr
-#'   \code{results$distribution} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plotindiv} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plotvar} \tab \tab \tab \tab \tab an image \cr
-#'   \code{results$plotquantisup} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$plotmod} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$plotqualisup} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$plotquantisup} \tab \tab \tab \tab \tab an image \cr
 #'   \code{results$dimdesc} \tab \tab \tab \tab \tab a preformatted \cr
-#'   \code{results$clust} \tab \tab \tab \tab \tab a preformatted \cr
 #'   \code{results$plotclust} \tab \tab \tab \tab \tab an image \cr
+#'   \code{results$clust} \tab \tab \tab \tab \tab a preformatted \cr
 #' }
 #'
 #' @export
@@ -313,13 +311,12 @@ single <- function(
     asser,
     quantisup,
     qualisup,
-    individus,
     nFactors = 3,
     abs = 1,
     ord = 2,
     proba = 0.05,
-    quantimod = FALSE,
     varmodqualisup = FALSE,
+    quantimod = FALSE,
     modality,
     ventil = 0,
     modclust = "All",
@@ -331,30 +328,26 @@ single <- function(
     if ( ! missing(asser)) asser <- jmvcore::resolveQuo(jmvcore::enquo(asser))
     if ( ! missing(quantisup)) quantisup <- jmvcore::resolveQuo(jmvcore::enquo(quantisup))
     if ( ! missing(qualisup)) qualisup <- jmvcore::resolveQuo(jmvcore::enquo(qualisup))
-    if ( ! missing(individus)) individus <- jmvcore::resolveQuo(jmvcore::enquo(individus))
     if (missing(data))
         data <- jmvcore::marshalData(
             parent.frame(),
             `if`( ! missing(asser), asser, NULL),
             `if`( ! missing(quantisup), quantisup, NULL),
-            `if`( ! missing(qualisup), qualisup, NULL),
-            `if`( ! missing(individus), individus, NULL))
+            `if`( ! missing(qualisup), qualisup, NULL))
 
     for (v in asser) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
     for (v in qualisup) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
-    for (v in individus) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
 
     options <- singleOptions$new(
         asser = asser,
         quantisup = quantisup,
         qualisup = qualisup,
-        individus = individus,
         nFactors = nFactors,
         abs = abs,
         ord = ord,
         proba = proba,
-        quantimod = quantimod,
         varmodqualisup = varmodqualisup,
+        quantimod = quantimod,
         modality = modality,
         ventil = ventil,
         modclust = modclust,

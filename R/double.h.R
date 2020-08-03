@@ -12,7 +12,6 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             asser_g2 = NULL,
             quantisup_g2 = NULL,
             qualisup_g2 = NULL,
-            individus = NULL,
             nFactors = 3,
             abs = 1,
             ord = 2,
@@ -71,13 +70,6 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
                     "ordinal"),
                 permitted=list(
                     "factor"))
-            private$..individus <- jmvcore::OptionVariable$new(
-                "individus",
-                individus,
-                suggested=list(
-                    "nominal"),
-                permitted=list(
-                    "factor"))
             private$..nFactors <- jmvcore::OptionInteger$new(
                 "nFactors",
                 nFactors,
@@ -107,7 +99,6 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$.addOption(private$..asser_g2)
             self$.addOption(private$..quantisup_g2)
             self$.addOption(private$..qualisup_g2)
-            self$.addOption(private$..individus)
             self$.addOption(private$..nFactors)
             self$.addOption(private$..abs)
             self$.addOption(private$..ord)
@@ -121,7 +112,6 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         asser_g2 = function() private$..asser_g2$value,
         quantisup_g2 = function() private$..quantisup_g2$value,
         qualisup_g2 = function() private$..qualisup_g2$value,
-        individus = function() private$..individus$value,
         nFactors = function() private$..nFactors$value,
         abs = function() private$..abs$value,
         ord = function() private$..ord$value,
@@ -134,7 +124,6 @@ doubleOptions <- if (requireNamespace('jmvcore')) R6::R6Class(
         ..asser_g2 = NA,
         ..quantisup_g2 = NA,
         ..qualisup_g2 = NA,
-        ..individus = NA,
         ..nFactors = NA,
         ..abs = NA,
         ..ord = NA,
@@ -168,7 +157,7 @@ doubleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
                         super$initialize(
                             options=options,
                             name="eigengroup",
-                            title="Eigenvalue Decomposition")
+                            title="Eigenvalues Decomposition")
                         self$add(jmvcore::Table$new(
                             options=options,
                             name="eigen",
@@ -193,7 +182,7 @@ doubleResults <- if (requireNamespace('jmvcore')) R6::R6Class(
             self$add(jmvcore::Image$new(
                 options=options,
                 name="ploteigen",
-                title="Representation of the Eigenvalues",
+                title="Eigenvalues Representation",
                 width=600,
                 height=500,
                 renderFun=".ploteigen"))
@@ -253,7 +242,6 @@ doubleBase <- if (requireNamespace('jmvcore')) R6::R6Class(
 #' @param asser_g2 .
 #' @param quantisup_g2 .
 #' @param qualisup_g2 .
-#' @param individus .
 #' @param nFactors .
 #' @param abs .
 #' @param ord .
@@ -278,7 +266,6 @@ double <- function(
     asser_g2,
     quantisup_g2,
     qualisup_g2,
-    individus,
     nFactors = 3,
     abs = 1,
     ord = 2,
@@ -294,7 +281,6 @@ double <- function(
     if ( ! missing(asser_g2)) asser_g2 <- jmvcore::resolveQuo(jmvcore::enquo(asser_g2))
     if ( ! missing(quantisup_g2)) quantisup_g2 <- jmvcore::resolveQuo(jmvcore::enquo(quantisup_g2))
     if ( ! missing(qualisup_g2)) qualisup_g2 <- jmvcore::resolveQuo(jmvcore::enquo(qualisup_g2))
-    if ( ! missing(individus)) individus <- jmvcore::resolveQuo(jmvcore::enquo(individus))
     if (missing(data))
         data <- jmvcore::marshalData(
             parent.frame(),
@@ -303,14 +289,12 @@ double <- function(
             `if`( ! missing(qualisup_g1), qualisup_g1, NULL),
             `if`( ! missing(asser_g2), asser_g2, NULL),
             `if`( ! missing(quantisup_g2), quantisup_g2, NULL),
-            `if`( ! missing(qualisup_g2), qualisup_g2, NULL),
-            `if`( ! missing(individus), individus, NULL))
+            `if`( ! missing(qualisup_g2), qualisup_g2, NULL))
 
     for (v in asser_g1) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
     for (v in qualisup_g1) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
     for (v in asser_g2) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
     for (v in qualisup_g2) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
-    for (v in individus) if (v %in% names(data)) data[[v]] <- as.factor(data[[v]])
 
     options <- doubleOptions$new(
         asser_g1 = asser_g1,
@@ -319,7 +303,6 @@ double <- function(
         asser_g2 = asser_g2,
         quantisup_g2 = quantisup_g2,
         qualisup_g2 = qualisup_g2,
-        individus = individus,
         nFactors = nFactors,
         abs = abs,
         ord = ord,

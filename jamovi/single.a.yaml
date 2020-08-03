@@ -35,14 +35,6 @@ options:
       permitted:
         - factor
 
-    - name: individus
-      title: Individual Labels
-      type: Variable
-      suggested:
-        - nominal
-      permitted:
-        - factor
-
     - name: nFactors
       title: Number of factors
       type: Integer
@@ -63,15 +55,15 @@ options:
       type: Number
       default: 0.05
       
-    - name: quantimod
-      title: Quantitative supplementary variables
-      type: Bool
-      default: false
-      
     - name: varmodqualisup
       title : Categorical supplementary variables
       type: Bool
       default: false
+
+    - name: quantimod
+      title: Quantitative supplementary variables
+      type: Bool
+      default: false      
       
     - name: modality
       title: Level of modality to plot

@@ -61,14 +61,6 @@ options:
       permitted:
         - factor
 
-    - name: individus
-      title: Individual labels
-      type: Variable
-      suggested:
-        - nominal
-      permitted:
-        - factor
-
     - name: nFactors
       title: Number of factors
       type: Integer
