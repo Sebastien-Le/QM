@@ -245,7 +245,7 @@ singleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
       
       .plotclust = function(image, ...) {
         
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
         
         else {
           res.clust=image$state
