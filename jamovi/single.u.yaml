@@ -9,7 +9,7 @@ children:
     stretchFactor: 1
     children:
       - type: TargetLayoutBox
-        label: Statements (>2)
+        label: Statements (>1)
         children:
           - type: VariablesListBox
             name: asser
