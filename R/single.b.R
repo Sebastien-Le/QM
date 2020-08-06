@@ -104,65 +104,66 @@ singleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
         
         for (i in 1:nbdim) {
           row=list()
-          row[["eigenvalue"]]=eigen[i] #   ? chaque nom de colonne (eigenvalue, purcent et purcentcum)
-          row[["purcent"]]=purcent[i] #    on associe
-          row[["purcentcum"]]=purcentcum[i] #  une valeur des calculs pr?c?dents
+          row[["eigenvalue"]]=eigen[i]
+          row[["purcent"]]=purcent[i]
+          row[["purcentcum"]]=purcentcum[i]
           self$results$eigengroup$eigen$setRow(rowNo=i, values = row)
-        }
+          }
       },
       
       .plotindiv = function(image, ...) {
         
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
 
         else {
           res.mca=image$state
           abs=self$options$abs
           ord=self$options$ord
-          plot=FactoMineR::plot.MCA(res.mca, axes=c(abs, ord), choix="ind", 
-                                    invisible=c("var","quali.sup", "quanti.sup"), title="Respondents According to their Perception of the Concept")
+          plot=FactoMineR::plot.MCA(res.mca, axes=c(abs, ord), choix="ind",
+                                    invisible=c("var","quali.sup", "quanti.sup"),
+                                    title="Respondents According to their Perception of the Concept")
           print(plot)
           TRUE
-        }
+          }
       },
       
       .plotvar = function(image, ...) {
         
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
         
         else {
           res.mca=image$state
           abs=self$options$abs
           ord=self$options$ord
-          plot=FactoMineR::plot.MCA(res.mca, axes=c(abs, ord), choix="var", invisible=c("ind","quali.sup", "quanti.sup"), title="")
+          plot=FactoMineR::plot.MCA(res.mca, axes=c(abs, ord), choix="var",
+                                    invisible=c("ind","quali.sup", "quanti.sup"), title="")
           print(plot)
           TRUE
-        }
+          }
       },
 
       .plotqualisup = function(image, ...) {
         
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
         
         else {
-          
           res.mca=image$state
           abs=self$options$abs
           ord=self$options$ord
           
           if (is.null(self$options$varmodqualisup)==FALSE)
-            plot=FactoMineR::plot.MCA(res.mca, axes=c(abs, ord), choix="ind", invisible=c("var","ind"), title="Supplementary Categories")
+            plot=FactoMineR::plot.MCA(res.mca, axes=c(abs, ord), choix="ind",
+                                      invisible=c("var","ind"), title="Supplementary Categories")
             print(plot)
             TRUE
-        }
+            }
       }, 
       
       .plotquantisup = function(image, ...) {
         
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
         
         else {
-          
           res.mca=image$state
           abs=self$options$abs
           ord=self$options$ord
@@ -171,36 +172,35 @@ singleClass <- if (requireNamespace('jmvcore')) R6::R6Class(
             plot=FactoMineR::plot.MCA(res.mca, axes=c(abs, ord), choix="quanti.sup", title="")
             print(plot)
             TRUE
-        }
+            }
       }, 
       
       .ploteigen = function(image, ...){
         
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
         
         else {
           res.mca=image$state
           plot = factoextra::fviz_eig(res.mca, addlabels = TRUE, main="")
           print(plot)
           TRUE
-        }
-        
+          }
       },
       
       .distribution = function(image, ...){
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
         
         else{
           distri=image$state
           plot=ggplot(distri, aes(x=Categories, y=Distribution))+geom_bar(stat="identity")+geom_text(aes(label=Distribution), vjust=1.6, color="white", size=3.5)
           print(plot)
           TRUE
-        }
+          }
       },
       
       .plotmod = function(image, ...){
         
-        if (is.null(self$options$asser)) return()
+        if (is.null(self$options$asser) || length(self$options$asser) < 2) return()
         
         else {
           res.mca=image$state
