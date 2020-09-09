@@ -24,7 +24,7 @@ analyses:
     menuTitle: Two Concepts with MFA
 datasets:
   - name: herotravel
-    path: HeroTravel.csv
+    path: HeroTravel.omv
     description: Perception of the concept of hero and travel
     tags:
       - MCA
